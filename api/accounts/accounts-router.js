@@ -20,7 +20,8 @@ router.get('/:id', checkAccountId, (req, res, next) => {
 })
 
 router.post('/', checkAccountPayload, checkAccountNameUnique, async (req, res, next) => {
-    const { name, budget } = req.body
+    const name = req.body.name.trim()
+    const budget = req.body.budget
         try {
             const createAccount = await Account.create({ name, budget })
             res.status(201).json(createAccount)
@@ -40,12 +41,14 @@ router.put('/:id', checkAccountPayload, checkAccountId, async (req, res, next) =
         }
 });
 
-router.delete('/:id', (req, res, next) => {
-  // DO YOUR MAGIC
-})
-
-router.use((err, req, res, next) => { // eslint-disable-line
-  // DO YOUR MAGIC
+router.delete('/:id', checkAccountId, async(req, res, next) => {
+    const { id } = req.params
+        try {
+            await Account.deleteById(id)
+            res.json(req.account)
+        } catch (err) {
+            next(err)
+        }
 })
 
 router.use((err, req, res, next) => { // eslint-disable-line

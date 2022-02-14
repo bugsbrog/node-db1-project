@@ -91,7 +91,7 @@ db('foo-table').where('id', id).delete() // resolves to the **number of records*
   -X `[GET] /api/accounts/:id` returns an account by the given id.
   -X `[POST] /api/accounts` returns the created account. Leading or trailing whitespace on budget `name` should be trimmed before saving to db.
   -X `[PUT] /api/accounts/:id` returns the updated account. Leading or trailing whitespace on budget `name` should be trimmed before saving to db.
-  - `[DELETE] /api/accounts/:id` returns the deleted account.
+  -X `[DELETE] /api/accounts/:id` returns the deleted account.
 
 - Manually test your endpoints with a REST client like `Insomnia` or `Postman` to check they are working as expected.
 - Test your endpoints automatically by running `npm test`.
@@ -110,8 +110,8 @@ The following exercises **require research**, the concepts needed to complete th
 
 - Run more queries.
 
-  - Find a query to discover how many different cities are stored in the Customers table. Repeats should not be double counted. Should be 69.
-  - Find all suppliers who have names longer than 20 characters. Returns 11 records.
+  -X Find a query to discover how many different cities are stored in the Customers table. Repeats should not be double counted. Should be 69.
+  -X Find all suppliers who have names longer than 20 characters. Returns 11 records.
   - Add a `query string` option to the `GET /api/accounts` endpoint. The `query string` may contain `limit`, `sortby` and `sortdir` keys. If these keys are provided, use these values to limit and sort the `accounts` which are selected from the database. Reference the docs for sorting and limiting in [knexjs.org](http://knexjs.org/).
 
   ```js

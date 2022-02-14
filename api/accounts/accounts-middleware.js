@@ -35,12 +35,12 @@ exports.checkAccountNameUnique = async (req, res, next) => {
             .where('name', req.body.name.trim())
             .first()
         if (!exists) {
+            next()
+        } else {
             next({
                 status: 400,
                 message: 'that name is taken'
             })
-        } else {
-            next()
         }
     } catch (err) {
         next(err)
@@ -51,14 +51,14 @@ exports.checkAccountId = async (req, res, next) => {
     const { id } = req.params
         try {
             const account = await Accounts.getById(id)
-                if (!account) {
+                if (account) {
+                    req.account = account
+                    next()
+                } else {
                     next({
                         status: 404,
                         message: 'account not found'
                     })
-                } else {
-                    req.account = account
-                    next()
                 }
         } catch (err) {
             next(err)
