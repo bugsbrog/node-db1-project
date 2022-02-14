@@ -47,11 +47,11 @@ npm run resetdb
 
 - Write the following db access functions inside `api/accounts/accounts-model.js` using Knex:
 
-  - `getAll` resolves to an array of accounts (or an empty array)
-  - `getById` resolves to an account by the given id
-  - `create` resolves to the newly created account
-  - `updateById` resolves to the updated account
-  - `deleteById` resolves to the deleted account
+  -X `getAll` resolves to an array of accounts (or an empty array)
+  -X `getById` resolves to an account by the given id
+  -X `create` resolves to the newly created account
+  -X `updateById` resolves to the updated account
+  -X `deleteById` resolves to the deleted account
 
 - Here is a cheatsheet for working with SQLite with Knex:
 
