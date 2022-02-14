@@ -28,10 +28,39 @@ exports.checkAccountPayload = (req, res, next) => {
         }
 }
 
-exports.checkAccountNameUnique = (req, res, next) => {
-  // DO YOUR MAGIC
+exports.checkAccountNameUnique = async (req, res, next) => {
+    try {
+        // WHY DO WE HAVE TO DO IT THIS WAY?!
+        const exists = await db('Accounts')
+            .where('name', req.body.name.trim())
+            .first()
+        if (!exists) {
+            next({
+                status: 400,
+                message: 'that name is taken'
+            })
+        } else {
+            next()
+        }
+    } catch (err) {
+        next(err)
+    }
 }
 
-exports.checkAccountId = (req, res, next) => {
-  // DO YOUR MAGIC
+exports.checkAccountId = async (req, res, next) => {
+    const { id } = req.params
+        try {
+            const account = await Accounts.getById(id)
+                if (account) {
+                    req.account = account
+                    next()
+                } else {
+                    next({
+                        status: 400,
+                        message: 'account not found'
+                    })
+                }
+        } catch (err) {
+            next(err)
+        }
 }
