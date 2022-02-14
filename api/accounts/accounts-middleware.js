@@ -2,7 +2,7 @@ const Accounts = require('./accounts-model')
 const db = require('../../data/db-config')
 
 exports.checkAccountPayload = (req, res, next) => {
-    const { name, budget }= req.body
+    const { name, budget } = req.body
         if (name === undefined || budget === undefined) {
             next({
                 status: 400,
@@ -51,14 +51,14 @@ exports.checkAccountId = async (req, res, next) => {
     const { id } = req.params
         try {
             const account = await Accounts.getById(id)
-                if (account) {
-                    req.account = account
-                    next()
-                } else {
+                if (!account) {
                     next({
-                        status: 400,
+                        status: 404,
                         message: 'account not found'
                     })
+                } else {
+                    req.account = account
+                    next()
                 }
         } catch (err) {
             next(err)
